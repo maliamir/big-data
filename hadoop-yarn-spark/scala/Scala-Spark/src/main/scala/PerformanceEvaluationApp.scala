@@ -105,7 +105,7 @@ object PerformanceEvaluationApp {
 
     } finally try {
 
-      val fileOutputStream = new FileOutputStream(new File("/scratch/muamir/hadoop/spark/code/source_code/SparkXml/java-project/scala-run-output.log"))
+      val fileOutputStream = new FileOutputStream(new File("/home/user/scala-spark-run-output.log"))
 
       try
         IOUtils.write(stringBuilder.toString, fileOutputStream, "UTF-8")

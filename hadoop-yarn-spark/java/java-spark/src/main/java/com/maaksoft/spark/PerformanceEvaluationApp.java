@@ -109,7 +109,7 @@ public class PerformanceEvaluationApp {
             
         } finally {
             
-            try (FileOutputStream fileOutputStream = new FileOutputStream(new File("/scratch/muamir/hadoop/spark/code/source_code/SparkXml/java-project/java-spark-output.log"));){
+            try (FileOutputStream fileOutputStream = new FileOutputStream(new File("/home/user/java-spark-run-output.log"));){
                 IOUtils.write(stringBuilder.toString(), fileOutputStream);
             }
         
