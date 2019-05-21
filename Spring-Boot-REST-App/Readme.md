@@ -24,9 +24,11 @@ java -jar target/Spring-Boot-REST-0.0.1-SNAPSHOT.jar
 
 **2b. Run the app from IntelliJ IDEA**
 
+Set maven path in 'Preferences' (maven-3.5.4)
+
 Just play 'Run Configuration' named "Run-REST-App"
 
 
-
 That's it! The application can be accessed at `http://localhost:8080`.
+
 Enjoy !!! Any feedback is highly appreciated.
