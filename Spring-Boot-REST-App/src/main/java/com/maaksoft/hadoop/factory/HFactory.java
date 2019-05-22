@@ -4,8 +4,14 @@ import com.maaksoft.file_operations.property.FopsProperties;
 
 import com.maaksoft.hadoop.model.HStorage;
 
-public interface HFactory {
+public abstract class HFactory {
 
-    HStorage create(FopsProperties fopsProperties);
+    protected FopsProperties fopsProperties;
+
+    public HFactory(FopsProperties fopsProperties) {
+        this.fopsProperties = fopsProperties;
+    }
+
+    public abstract HStorage create();
 
 }

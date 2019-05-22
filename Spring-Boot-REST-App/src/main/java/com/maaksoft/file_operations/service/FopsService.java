@@ -40,9 +40,9 @@ public class FopsService {
 
     private final Path fileStorageLocation;
 
-    private FopsProperties fopsProperties;
+    private final FopsProperties fopsProperties;
 
-    private HFactory hFactory;
+    private final HFactory hFactory;
 
     @Autowired
     public FopsService(FopsProperties fopsProperties) {
@@ -57,7 +57,7 @@ public class FopsService {
         }
 
         try {
-            hFactory = HFactoryProvider.getFactory(HdfsFactory.class);
+            this.hFactory = HFactoryProvider.getFactory(HdfsFactory.class, this.fopsProperties);
         } catch (Exception ex) {
             throw new FopsException("Unable to create Hadoop Factory instance.", ex);
         }
@@ -66,32 +66,34 @@ public class FopsService {
 
     public String storeFile(MultipartFile file) {
 
-        // Normalize file name
+        //Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-        try {
-            // Check if the file's name contains invalid characters
+        //try {
+
+            //Check if the file's name contains invalid characters
             if(fileName.contains("..")) {
                 throw new FopsException("Filename contains invalid path sequence " + fileName);
             }
 
-            // Copy file to the target location (Replacing existing file with the same name)
-            Path targetLocation = this.fileStorageLocation.resolve(fileName);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            //Copy file to the target location (Replacing existing file with the same name). Commenting below 2 lines since storing file locally at Application Server side is not really needed.
+            //Path targetLocation = this.fileStorageLocation.resolve(fileName);
+            //Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-            this.hFactory.create(this.fopsProperties).store(file);
+            this.hFactory.create().store(file);
 
             return fileName;
-
+        /*
         } catch (IOException ex) {
             throw new FopsException("Could not store file " + fileName + ". Please try again!", ex);
         }
+        */
 
     }
 
-    public List<FileResponse> getFilesInfo() throws IOException {
+    public List<FileResponse> getFilesInfo() {
 
-        FileStatus[] fileStatuses = (FileStatus[])this.hFactory.create(this.fopsProperties).getInfo();
+        FileStatus[] fileStatuses = (FileStatus[])this.hFactory.create().getInfo();
         List<FileResponse> fileResponses = new ArrayList<FileResponse>();
 
         for (int index = 0; index < fileStatuses.length; index++) {
