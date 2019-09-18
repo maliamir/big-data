@@ -22,9 +22,9 @@ public class FopsApplication {
     @Autowired
     private FopsProperties fopsProperties;
 
-	public static void main(String[] args) {
-	    SpringApplication.run(FopsApplication.class, args);
-	}
+    public static void main(String[] args) {
+	SpringApplication.run(FopsApplication.class, args);
+    }
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
